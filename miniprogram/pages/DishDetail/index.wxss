@@ -1,0 +1,126 @@
+.dish-cover {
+  width: 100%;
+  height: 220px;
+  display: block;
+  background: #f0f0f0;
+}
+
+.item-info_title {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-2);
+  margin-bottom: 12rpx;
+  letter-spacing: 1rpx;
+}
+
+.item-info_desc {
+  font-size: var(--fs-md);
+  color: var(--text-1);
+  line-height: 1.5;
+}
+
+.item-info_credit {
+  font-size: var(--fs-2xs);
+  color: var(--text-3);
+  text-align: right;
+}
+
+/* ---------- 备菜清单：已买(绿) / 待买(红) 两区 ---------- */
+.ig-block {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border: 1rpx solid transparent;
+  border-radius: 10px;
+}
+
+.ig-got {
+  background: #eaf7ed;
+  border-color: #b7e4c7;
+}
+
+.ig-buy {
+  background: #fdecea;
+  border-color: #f5c6c3;
+}
+
+.ig-block_title {
+  padding-bottom: 4px;
+  font-size: var(--fs-sm);
+  font-weight: bold;
+}
+
+.ig-got .ig-block_title {
+  color: #2e9e5b;
+}
+
+.ig-buy .ig-block_title {
+  color: #e64340;
+}
+
+.ig-row {
+  display: flex;
+  align-items: center;
+  padding: 7px 0;
+}
+
+.ig-row_icon {
+  margin-right: 8px;
+}
+
+.ig-row_name {
+  flex: 1;
+  font-size: var(--fs-base);
+}
+
+.ig-got .ig-row_name {
+  color: #2e9e5b;
+  text-decoration: line-through;
+}
+
+.ig-buy .ig-row_name {
+  color: #e64340;
+}
+
+.ig-row_del {
+  padding: 0 8px;
+  font-size: var(--fs-md);
+  color: #bdbdbd;
+}
+
+.ig-block_empty {
+  padding: 4px 0;
+  font-size: var(--fs-xs);
+  color: #bdbdbd;
+}
+
+.ig-tip {
+  margin-top: 6px;
+  font-size: var(--fs-2xs);
+  color: #bdbdbd;
+}
+
+.ig-reset {
+  margin-top: 8px;
+  font-size: var(--fs-xs);
+  color: var(--primary);
+  text-align: right;
+}
+
+.ig-input-row {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.ig-input {
+  flex: 1;
+  margin-right: 8px;
+}
+
+.ig-add {
+  padding: 6px 14px;
+  font-size: var(--fs-sm);
+  color: white;
+  background: var(--primary);
+  border-radius: 14px;
+}

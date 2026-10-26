@@ -1,0 +1,42 @@
+.dish-cover {
+  width: 100%;
+  height: 400rpx;
+  display: block;
+  background: #f0f0f0;
+}
+
+.item-info_title {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-2);
+  margin-bottom: 12rpx;
+  letter-spacing: 1rpx;
+}
+
+.item-info_desc {
+  font-size: var(--fs-md);
+  color: var(--text-1);
+  line-height: 1.5;
+}
+
+.count-row {
+  display: flex;
+  align-items: center;
+}
+
+.count-btn {
+  width: 30px;
+  height: 30px;
+  line-height: 28px;
+  text-align: center;
+  font-size: var(--fs-lg);
+  border: 1rpx solid #e0e0e0;
+  border-radius: 6px;
+  color: var(--primary);
+}
+
+.count-num {
+  width: 46px;
+  text-align: center;
+  font-size: var(--fs-md);
+}

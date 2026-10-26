@@ -1,0 +1,115 @@
+/* 底部有固定的「重置 / 保存」按钮栏，留出空间避免内容被挡住 */
+.container {
+  margin-bottom: 140rpx;
+}
+
+.tag-pick {
+  display: inline-block;
+  margin: 0 12px 8px 0;
+  font-size: var(--fs-sm);
+}
+
+.image-row {
+  display: flex;
+  align-items: center;
+}
+
+.dish-picker {
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: #b0b0b0;
+  border: 1rpx dashed #d8d8d8;
+  border-radius: 8px;
+}
+
+.dish-preview {
+  width: 90px;
+  height: 90px;
+  border-radius: 8px;
+}
+
+.dish-remove {
+  margin-left: 14px;
+  font-size: var(--fs-sm);
+  color: var(--primary);
+}
+
+.footer {
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  gap: 20rpx;
+  position: fixed;
+  box-sizing: border-box;
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, 0.94);
+  border-top: 1rpx solid var(--line);
+}
+
+.footer view {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: var(--fs-md);
+  text-align: center;
+  border-radius: 44rpx;
+}
+
+.reset {
+  color: var(--text-2);
+  background: #f5f5f7;
+}
+
+.save {
+  color: white;
+  font-weight: 600;
+  background: linear-gradient(135deg, #f7a8bc, #e0678a);
+  box-shadow: 0 8rpx 20rpx rgba(224, 103, 138, 0.3);
+}
+
+/* ---------- 备菜配料 ---------- */
+.ig-input-row {
+  display: flex;
+  align-items: center;
+  margin: 6px 0;
+}
+
+.ig-input {
+  flex: 1;
+  margin-right: 8px;
+}
+
+.ig-add {
+  padding: 6px 14px;
+  font-size: var(--fs-sm);
+  color: white;
+  background: var(--primary);
+  border-radius: 14px;
+}
+
+.ig-chip {
+  display: inline-block;
+  margin: 4px 6px 0 0;
+  padding: 4px 10px;
+  font-size: var(--fs-xs);
+  color: var(--primary);
+  background: var(--primary-light);
+  border-radius: 12px;
+}
+
+/* 只有这个 × 能删，点配料名本身不会删 */
+.ig-chip-del {
+  margin-left: 6px;
+  padding: 0 2px;
+  font-size: var(--fs-sm);
+  color: #bdbdbd;
+}
+
+.ig-empty {
+  margin-top: 4px;
+  font-size: var(--fs-xs);
+  color: #bdbdbd;
+}

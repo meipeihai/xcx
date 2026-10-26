@@ -1,0 +1,77 @@
+<wxs module="util" src="../util.wxs" />
+
+<view style="width:100%; background: none;">
+  <!-- 渐变从状态栏顶端就开始了，这里用 padding 把内容让开 -->
+  <view class="hero" style="padding-top: calc({{statusBarHeight}}px + 44rpx)">
+    <view class="hero-title">我们的小厨房</view>
+    <view class="hero-sub">今天想吃什么呢？🐾</view>
+  </view>
+
+  <!-- 今天吃什么 -->
+  <view class="lucky-card">
+    <view class="lucky-title">🍽 今天吃什么？</view>
+    <view wx:if="{{lucky}}" class="lucky-name">{{lucky.title}}</view>
+    <view wx:elif="{{rolling}}" class="lucky-name">让我想想...</view>
+    <view wx:else class="lucky-name">还没决定</view>
+
+    <view wx:if="{{lucky}}" class="lucky-desc">{{lucky.category || '未分类'}} · 💰 {{util.price(lucky.price)}} 元 · 被点 {{lucky.eatCount || 0}} 次</view>
+    <view wx:else class="lucky-desc">菜单共 {{dishCount}} 道菜</view>
+
+    <view class="lucky-btn" bindtap="randomPick">{{rolling ? '摇一摇中' : '🎲 帮我抽一个'}}</view>
+    <view wx:if="{{lucky}}" class="lucky-btn solid" bindtap="addLuckyToCart">就吃这个，加入餐单</view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="entry-row">
+    <view class="entry" bindtap="goDish">
+      <view class="entry-num">{{dishCount}}</view>
+      <view class="entry-txt">菜单</view>
+    </view>
+    <view class="entry" bindtap="goCart">
+      <view class="entry-num">{{cartCount}}</view>
+      <view class="entry-txt">今日餐单</view>
+    </view>
+    <view class="entry" bindtap="goRecord">
+      <view class="entry-num">📝</view>
+      <view class="entry-txt">点菜记录</view>
+    </view>
+  </view>
+
+  <view class="form-group_label">👩‍❤️‍👨 我们的称呼 · 点名字可改</view>
+  <view class="form-group">
+    <view class="form-cell">
+      <view class="slide" data-which="A" bindtap="renameUser">
+        <view class="title">{{userA}}<text wx:if="{{isA}}" class="self-tag">（我）</text></view>
+        <view class="rename-tip">改称呼</view>
+      </view>
+    </view>
+    <view class="form-cell">
+      <view class="slide" data-which="B" bindtap="renameUser">
+        <view class="title">{{userB}}<text wx:if="{{isB}}" class="self-tag">（我）</text></view>
+        <view class="rename-tip">改称呼</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-group_label">🔥 常吃榜单</view>
+  <view class="form-group" wx:if="{{hotDishes.length > 0}}">
+    <view class="hot-row" wx:for="{{hotDishes}}" wx:key="index" data-id="{{item._id}}" bindtap="goDishDetail">
+      <view class="hot-rank hot-rank_{{item.rank}}">{{item.medal}}</view>
+      <view class="hot-main">
+        <view class="hot-top">
+          <view class="hot-name">{{item.title}}</view>
+          <view class="hot-count">{{item.eatCount || 0}} 次</view>
+        </view>
+        <view class="hot-bar">
+          <view class="hot-bar_fill" style="width: {{item.percent}}%;"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:else class="hot-empty">
+    <view class="hot-empty_icon">🍽</view>
+    <view class="hot-empty_txt">还没有点菜记录哦</view>
+    <view class="hot-empty_sub">去菜单点几道菜，这里就有榜了</view>
+  </view>
+
+</view>

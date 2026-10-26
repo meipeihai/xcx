@@ -1,0 +1,235 @@
+/* ---------- 空态 ---------- */
+.background {
+  width: 70vw;
+  margin-top: 5vh;
+}
+
+.title {
+  margin-top: 40rpx;
+  font-size: var(--fs-lg);
+  font-weight: bold;
+}
+
+.subtitle {
+  margin-top: 18rpx;
+  font-size: var(--fs-xs);
+}
+
+/* 页面容器：内容撑满宽度，左右统一留白 */
+.cart-page {
+  align-items: stretch;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+}
+
+/* ---------- 顶部粉渐变头 ---------- */
+/* 背景渐变由 page 统一铺满（含状态栏），这里只放内容 */
+.hero {
+  width: 100%;
+  padding: 32rpx 32rpx 36rpx;
+  box-sizing: border-box;
+}
+
+.hero-title {
+  font-family: 'Kaiti SC', 'STKaiti', 'KaiTi', serif;
+  font-size: var(--fs-num);
+  font-weight: 700;
+  color: #a04a63;
+  letter-spacing: 2rpx;
+}
+
+.hero-sub {
+  margin-top: 8rpx;
+  font-size: var(--fs-sm);
+  color: #c07a8d;
+}
+
+/* ---------- 搜索框 ---------- */
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 68rpx;
+  padding: 0 24rpx 0 60rpx;
+  margin: 20rpx 0 16rpx;
+  background-color: var(--card);
+  border-radius: 34rpx;
+  box-shadow: var(--shadow);
+}
+
+.search-icon {
+  position: absolute;
+  left: 22rpx;
+}
+
+.search-input {
+  width: 100%;
+  height: 68rpx;
+  line-height: 68rpx;
+  font-size: var(--fs-sm);
+  color: var(--text-1);
+}
+
+.search-ph {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+/* ---------- 区块头：图标 + 标题 + 副文字 + 数量 ---------- */
+.group-title {
+  display: flex;
+  align-items: center;
+  margin: 16rpx 0 16rpx;
+}
+
+.gt-icon {
+  font-size: var(--fs-md);
+}
+
+.gt-mid {
+  flex: 1;
+  min-width: 0;
+  margin-left: 10rpx;
+}
+
+.gt-name {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.gt-sub {
+  margin-top: 2rpx;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+.gt-count {
+  flex-shrink: 0;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+/* ---------- 餐单卡片 ---------- */
+.cart-card {
+  width: 100%;
+  margin-bottom: 16rpx;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.cart-inner {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+}
+
+.cart-thumb {
+  width: 120rpx;
+  height: 120rpx;
+  flex-shrink: 0;
+  border-radius: 16rpx;
+  background: #f7e9ec;
+}
+
+.cart-thumb_empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-2xl);
+  color: #dcb6c0;
+}
+
+.cart-info {
+  flex: 1;
+  min-width: 0;
+  margin-left: 20rpx;
+}
+
+.cart-top {
+  display: flex;
+  align-items: baseline;
+}
+
+.cart-name {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--text-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 星标：改用文字，不再是一张盖在角上的大图 */
+.cart-star {
+  flex-shrink: 0;
+  margin-left: 10rpx;
+  font-size: var(--fs-base);
+  color: #ffb400;
+}
+
+.cart-count {
+  flex-shrink: 0;
+  margin-left: 12rpx;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+.cart-meta {
+  margin-top: 8rpx;
+  font-size: var(--fs-xs);
+  color: var(--primary-dark);
+}
+
+.cart-remark {
+  margin-top: 6rpx;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 已上桌：整体变淡 */
+.cart-card.served .cart-inner {
+  opacity: 0.6;
+}
+
+/* ---------- 今日合计 ---------- */
+.total-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8rpx;
+  padding: 28rpx 32rpx;
+  box-sizing: border-box;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #fff6f8 0%, #fdeef2 100%);
+}
+
+.total-label {
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+
+.total-price {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.main-pad {
+  height: 40rpx;
+}
+
+/* ---------- 左滑按钮 ---------- */
+.useBtn .weui-slideview__btn { background-color: var(--primary); }
+.starBtn .weui-slideview__btn { background-color: #ffb400; }
+.removeBtn .weui-slideview__btn { background-color: #ff8a80; }

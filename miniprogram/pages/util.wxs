@@ -1,0 +1,56 @@
+// 限制字符串显示长度
+var filterStr = function (str, limit) {
+  str = str === undefined || str === null ? '' : '' + str
+  return str.length > limit ? str.substring(0, limit) + "..." : str
+}
+var cutStr = function (str, limit) {
+  str = str === undefined || str === null ? '' : '' + str
+  return str.length > limit ? str.substring(0, limit) : str
+}
+var sliceStr = function (str, from, to) {
+  str = str === undefined || str === null ? '' : '' + str
+  return str.substring(from, to)
+}
+
+// 数组转展示文本，如 ['辣','下饭'] -> "辣 · 下饭"
+var joinTag = function (arr) {
+  if (!arr || !arr.length) return '无'
+  return arr.join(' · ')
+}
+
+// 金额格式化，保留两位小数以内
+var price = function (val) {
+  var n = val - 0
+  if (n !== n) n = 0
+  return '' + Math.round(n * 100) / 100
+}
+
+// 判断标签是否被选中（WXML 中替代 tags.indexOf(tag)）
+var hasTag = function (arr, val) {
+  if (!arr || !arr.length) return false
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] === val) return true
+  }
+  return false
+}
+
+// 餐次 / 状态 的中文映射
+var mealName = function (val) {
+  var map = { breakfast: '早餐', lunch: '午餐', dinner: '晚餐', night: '夜宵' }
+  return map[val] || '未指定'
+}
+var stateName = function (val) {
+  var map = { want: '想吃', cooking: '在做', served: '已上桌' }
+  return map[val] || '想吃'
+}
+
+module.exports = {
+  filterStr: filterStr,
+  cutStr: cutStr,
+  sliceStr: sliceStr,
+  joinTag: joinTag,
+  hasTag: hasTag,
+  price: price,
+  mealName: mealName,
+  stateName: stateName
+}

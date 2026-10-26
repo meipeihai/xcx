@@ -1,0 +1,24 @@
+# 依赖
+node_modules/
+
+# 微信开发者工具的私人配置（含 appid、本地路径、个人编译设置）
+project.private.config.json
+
+# 项目配置：appid 属于个人标识，不入库
+# 用 project.config.example.json 复制一份改名即可
+project.config.json
+
+# 云环境 ID（个人配置，不要提交）
+# 用 miniprogram/envList.example.js 复制一份改名即可
+miniprogram/envList.js
+
+# 小程序代码上传密钥（有了它就能直接上传代码，绝对不能提交）
+private.key
+*.key
+*.pem
+
+# 编辑器 / 系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

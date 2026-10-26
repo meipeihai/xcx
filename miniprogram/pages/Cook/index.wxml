@@ -1,0 +1,59 @@
+<view class="page">
+  <view class="hero" style="padding-top: calc({{statusBarHeight}}px + 32rpx)">
+    <view class="hero-title">点菜记录</view>
+    <view class="hero-sub">共 {{total}} 次 · 已完成 {{doneCount}} 次</view>
+  </view>
+
+  <view class="tab-row">
+    <view class="tab {{tabIndex === 0 ? 'on' : ''}}" data-index="0" bindtap="onTabTap">全部 {{total}}</view>
+    <view class="tab {{tabIndex === 1 ? 'on' : ''}}" data-index="1" bindtap="onTabTap">待完成 {{todoCount}}</view>
+    <view class="tab {{tabIndex === 2 ? 'on' : ''}}" data-index="2" bindtap="onTabTap">已完成 {{doneCount}}</view>
+  </view>
+
+  <scroll-view scroll-y class="list">
+    <view class="record" wx:for="{{showList}}" wx:key="_id">
+      <view class="rec-top">
+        <view class="rec-name">{{item.title}}</view>
+        <view class="rec-state {{item.done ? 'done' : ''}}">{{item.done ? '已完成' : '待完成'}}</view>
+      </view>
+
+      <view class="rec-meta">{{item.who}} 点的 · {{item.mealText}} · {{item.dateText}}</view>
+      <view class="rec-price">💰 {{item.price || 0}} 元 × {{item.count || 1}}</view>
+      <view wx:if="{{item.remark}}" class="rec-remark">📝 {{item.remark}}</view>
+
+      <view wx:if="{{item.rating}}" class="rec-rate">
+        <text class="rec-stars">{{item.stars}}</text>
+        <text class="rec-score">{{item.rating}} 分</text>
+      </view>
+      <view wx:if="{{item.comment}}" class="rec-comment">“{{item.comment}}”</view>
+
+      <view class="rec-actions">
+        <view wx:if="{{!item.done}}" class="rec-btn" data-id="{{item._id}}" catchtap="finishItem">标记完成</view>
+        <view wx:if="{{item.isMine}}" class="rec-btn" data-id="{{item._id}}" catchtap="openRating">{{item.rating ? '改评价' : '评价打分'}}</view>
+        <view wx:if="{{item.isMine}}" class="rec-btn del" data-id="{{item._id}}" catchtap="removeItem">删除</view>
+      </view>
+    </view>
+
+    <view wx:if="{{showList.length === 0}}" class="empty">这里还没有记录哦</view>
+    <view class="list-pad"></view>
+  </scroll-view>
+</view>
+
+<!-- 评价打分弹层 -->
+<view class="mask" wx:if="{{ratingId}}" bindtap="closeRating">
+  <view class="rate-box" catchtap="stopPop">
+    <view class="rate-title">给「{{ratingTitle}}」打个分</view>
+    <view class="rate-stars">
+      <text wx:for="{{starList}}" wx:key="*this"
+        class="rate-star {{item <= ratingScore ? 'on' : ''}}"
+        data-score="{{item}}" catchtap="pickScore">★</text>
+    </view>
+    <view class="rate-hint">{{ratingHint}}</view>
+    <textarea class="rate-input" placeholder="说点什么吧（可不填）"
+      bindinput="onCommentInput" value="{{ratingComment}}" maxlength="60" />
+    <view class="rate-btns">
+      <view class="rate-btn" catchtap="closeRating">取消</view>
+      <view class="rate-btn solid" catchtap="submitRating">保存</view>
+    </view>
+  </view>
+</view>

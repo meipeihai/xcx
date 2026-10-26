@@ -1,0 +1,185 @@
+.form-cell {
+  padding: 0;
+}
+
+.slide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26rpx 32rpx;
+  position: relative;
+}
+
+.title {
+  font-size: var(--fs-base);
+  color: var(--text-1);
+}
+
+.rename-tip {
+  padding-left: 16rpx;
+  font-size: var(--fs-2xs);
+  color: var(--text-3);
+}
+
+/* 标记自己是 A 还是 B */
+.self-tag {
+  margin-left: 8rpx;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+/* ---------- 顶部粉渐变头 ---------- */
+/* 背景渐变由 page 统一铺满（含状态栏），这里只放内容 */
+.hero {
+  width: 100%;
+  padding: 44rpx 40rpx 48rpx;
+  box-sizing: border-box;
+}
+
+.hero-title {
+  font-family: 'Kaiti SC', 'STKaiti', 'KaiTi', serif;
+  font-size: var(--fs-num);
+  font-weight: 700;
+  color: #a04a63;
+  letter-spacing: 2rpx;
+}
+
+.hero-sub {
+  margin-top: 10rpx;
+  font-size: var(--fs-sm);
+  color: #c07a8d;
+}
+
+/* ---------- 快捷入口：三张独立小卡 ---------- */
+.entry-row {
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 48rpx);
+  margin: 24rpx;
+}
+
+.entry {
+  flex: 1;
+  text-align: center;
+  padding: 30rpx 0 26rpx;
+  margin: 0 8rpx;
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.entry:first-child {
+  margin-left: 0;
+}
+
+.entry:last-child {
+  margin-right: 0;
+}
+
+.entry-num {
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  color: var(--primary-dark);
+  line-height: 1.1;
+}
+
+.entry-txt {
+  margin-top: 10rpx;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+
+/* ---------- 常吃榜单：奖牌 + 热度条 ---------- */
+.hot-row {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 28rpx;
+}
+
+.hot-rank {
+  flex-shrink: 0;
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: var(--fs-md);
+  border-radius: 50%;
+}
+
+/* 金 / 银 / 铜 */
+.hot-rank_1 { background: #fff2cf; }
+.hot-rank_2 { background: #eef1f5; }
+.hot-rank_3 { background: #fae3d2; }
+
+.hot-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.hot-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.hot-name {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--text-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hot-count {
+  flex-shrink: 0;
+  margin-left: 16rpx;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.hot-bar {
+  height: 8rpx;
+  margin-top: 12rpx;
+  background: #f0f2f5;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.hot-bar_fill {
+  height: 100%;
+  border-radius: 8rpx;
+  background: linear-gradient(90deg, #f7a8bc, #e0678a);
+}
+
+/* 榜单空状态 */
+.hot-empty {
+  width: calc(100% - 48rpx);
+  margin: 0 24rpx 24rpx;
+  padding: 48rpx 0;
+  text-align: center;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.hot-empty_icon {
+  font-size: var(--fs-num);
+}
+
+.hot-empty_txt {
+  margin-top: 16rpx;
+  font-size: var(--fs-base);
+  color: var(--text-1);
+}
+
+.hot-empty_sub {
+  margin-top: 8rpx;
+  font-size: var(--fs-2xs);
+  color: var(--text-3);
+}

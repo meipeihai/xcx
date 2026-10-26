@@ -1,0 +1,47 @@
+<wxs module="util" src="../util.wxs" />
+
+<view class="container white" style="animation-name: animation-blur; animation-duration: 0.8s;">
+  <image wx:if="{{order.imageFileID}}" class="dish-cover" src="{{order.imageFileID}}" mode="aspectFill" />
+  <image wx:else src="../../images/Item.gif" mode='widthFix' />
+
+  <view class="form-group" style="z-index: 0; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05);">
+    <view class="form-cell">
+      <view class="item-info_title">📌 菜品名称</view>
+      <view class="item-info_desc">{{order.title}}</view>
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">🧑 谁点的</view>
+      <view class="item-info_desc">{{owner}} 点了这道菜</view>
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">🍽 餐次 / 状态</view>
+      <view class="item-info_desc">{{util.mealName(order.mealType)}} · {{util.stateName(order.state)}}</view>
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">🔢 份数</view>
+      <view class="count-row">
+        <view class="count-btn" bindtap="minusCount">-</view>
+        <view class="count-num">{{order.count || 1}}</view>
+        <view class="count-btn" bindtap="addCount">+</view>
+      </view>
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">💰 小计：{{util.price((order.price || 0) * (order.count || 1))}} 元</view>
+      <view class="item-info_desc">单价 {{util.price(order.price)}} 元</view>
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">📝 备注（少辣 / 不要香菜）</view>
+      <textarea class="form-cell_input" placeholder="有什么忌口吗?" bindblur="onRemarkInput" value="{{order.remark}}" />
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">📅 点菜时间</view>
+      <view class="item-info_desc">{{dateStr}} | {{util.cutStr(timeStr, 8)}}</view>
+    </view>
+  </view>
+</view>

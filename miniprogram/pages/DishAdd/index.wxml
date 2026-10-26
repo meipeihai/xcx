@@ -1,0 +1,62 @@
+<wxs module="util" src="../util.wxs" />
+<view class="container white" style="animation-name: animation-blur; animation-duration: 0.5s;">
+  <view class="form-group" style="z-index: 0;">
+    <view class="form-cell">
+      <view class="form-cell_title">🔖 选择预设</view>
+      <picker mode="selector" bindchange="onPresetChange" value="{{presetIndex}}" range="{{presets}}" range-key="name">{{presets[presetIndex].name}}</picker>
+    </view>
+
+    <view class="form-cell">
+      <view class="form-cell_title">📌 菜品名称</view>
+      <input class="form-cell_input" placeholder="这道菜叫什么?" placeholder-class="form-cell_placeholder" bindinput="onTitleInput" value="{{title}}" />
+    </view>
+
+    <view class="form-cell">
+      <view class="form-cell_title">📝 做法 / 备注</view>
+      <textarea class="form-cell_input" placeholder="怎么做? 大概多久? 有什么讲究?" placeholder-class="form-cell_placeholder" bindinput="onDescInput" value="{{desc}}" />
+    </view>
+
+    <view class="form-cell">
+      <view class="form-cell_title">🍽 所属分类</view>
+      <picker mode="selector" bindchange="onCategoryChange" value="{{categoryIndex}}" range="{{categories}}">{{categories[categoryIndex]}}</picker>
+    </view>
+
+    <view class="form-cell">
+      <view class="form-cell_title">🏷 口味标签</view>
+      <checkbox-group bindchange="onTagChange">
+        <label class="tag-pick" wx:for="{{tagList}}" wx:key="index">
+          <checkbox value="{{item}}" checked="{{util.hasTag(tags, item)}}" />{{item}}
+        </label>
+      </checkbox-group>
+    </view>
+
+    <view class="form-cell">
+      <view class="form-cell_title">🥕 备菜配料</view>
+      <view class="ig-input-row">
+        <input class="form-cell_input ig-input" placeholder="需要什么? 如：鸡蛋" placeholder-class="form-cell_placeholder" bindinput="onIngredientInput" value="{{ingredientDraft}}" />
+        <view class="ig-add" bindtap="addIngredient">添加</view>
+      </view>
+      <view class="ig-chip" wx:for="{{ingredients}}" wx:for-item="ig" wx:for-index="iidx" wx:key="*this">{{ig}}<text class="ig-chip-del" catchtap="removeIngredient" data-name="{{ig}}">×</text></view>
+      <view wx:if="{{ingredients.length === 0}}" class="ig-empty">还没填配料，备菜时就没有清单哦</view>
+    </view>
+
+    <view class="form-cell">
+      <view class="form-cell_title">💰 参考价格</view>
+      <slider min="0" max="{{maxPrice}}" block-size="15" block-color="#e0678a" activeColor="#f19cae" bindchange="onPriceInput" value="{{price}}" show-value/>
+    </view>
+
+    <view class="form-cell">
+      <view class="form-cell_title">🖼 菜品图片</view>
+      <view class="image-row">
+        <image wx:if="{{imageFileID}}" class="dish-preview" src="{{imageFileID}}" mode="aspectFill" bindtap="chooseImage" />
+        <view wx:else class="dish-picker" bindtap="chooseImage">+ 选一张图</view>
+        <view wx:if="{{imageFileID}}" class="dish-remove" bindtap="removeImage">移除</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <view class="reset" bindtap="resetDish">重置</view>
+    <view class="save" bindtap="saveDish">保存</view>
+  </view>
+</view>

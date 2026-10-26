@@ -1,0 +1,275 @@
+/* 引入 weui 组件 */
+@import './miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
+
+/* ================= 设计变量 ================= */
+page {
+  /* 主色系（粉） */
+  --primary: #f19cae;
+  --primary-dark: #e0678a;
+  --primary-light: #fdeef2;
+
+  /* 语义色 */
+  --success: #2e9e5b;
+  --success-light: #eaf7ed;
+  --danger: #e64340;
+  --danger-light: #fdecea;
+
+  /* 背景 / 卡片 */
+  --bg: #fdf1f4;
+  --card: #ffffff;
+
+  /* 文字层级 */
+  --text-1: #1f2329;
+  --text-2: #8a9099;
+  --text-3: #b8bec7;
+
+  /* 字号阶梯：全站只用这几档，避免 23rpx / 25rpx 这种随手值
+     （750rpx 设计宽，28rpx ≈ 14px） */
+  --fs-2xs: 22rpx;   /* 11px  角标、极小标签 —— 不再更小，保证看得清 */
+  --fs-xs:  24rpx;   /* 12px  辅助说明、时间戳 */
+  --fs-sm:  26rpx;   /* 13px  次要正文、副标题 */
+  --fs-base:28rpx;   /* 14px  正文基准（page 默认） */
+  --fs-md:  30rpx;   /* 15px  卡片标题、菜名 */
+  --fs-lg:  34rpx;   /* 17px  价格、强调数字 */
+  --fs-xl:  40rpx;   /* 20px  区块大标题 */
+  --fs-2xl: 44rpx;   /* 22px  页面主标题 */
+  --fs-num: 52rpx;   /* 26px  统计大数字 */
+
+  /* 线 / 圆角 / 阴影 */
+  --line: rgba(17, 20, 45, 0.06);
+  --radius: 20rpx;
+  --radius-lg: 28rpx;
+  --shadow: 0 8rpx 24rpx rgba(224, 103, 138, 0.08), 0 2rpx 6rpx rgba(224, 103, 138, 0.04);
+
+  /* 兼容旧变量名 */
+  --footer-height: 10vh;
+  --button-size: 16vw;
+  --button-color: #353535;
+  --button-icon-size: 6vw;
+  --main-color: #f19cae;
+  --sub-color: #f7c6d2;
+}
+
+page {
+  /* 沉浸式背景：粉色从最顶端（含状态栏）铺下来，往下渐隐回底色。
+     渐变固定在一屏高度，页面再长也不会被拉花。 */
+  background-color: var(--bg);
+  background-image: linear-gradient(180deg, #f9bfcf 0%, #fbd5e0 14%, rgba(253, 241, 244, 0) 42%);
+  background-repeat: no-repeat;
+  background-size: 100% 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: var(--text-1);
+  font-size: var(--fs-base);
+  /* 中文默认行距偏挤，放开一点更好读 */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 页面容器：改为透明，让白色卡片浮在浅灰底上 */
+.container.white {
+  background-color: transparent;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button {
+  background: initial;
+}
+
+button:focus {
+  outline: 0;
+}
+
+button::after {
+  border: none;
+}
+
+/* ================= 卡片 ================= */
+.form-group {
+  width: calc(100% - 48rpx);
+  margin: 24rpx;
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.form-group_label {
+  align-self: flex-start;
+  margin: 36rpx 0 4rpx 36rpx;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 1rpx;
+}
+
+.form-group_label:not(:first-child) {
+  margin-top: 36rpx;
+}
+
+.form-cell {
+  padding: 30rpx 32rpx;
+}
+
+.form-cell:not(:last-child) {
+  border-bottom: 1rpx solid var(--line);
+}
+
+.form-cell.inline {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* ================= 表单控件 ================= */
+.form-cell_title {
+  margin-bottom: 16rpx;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-2);
+  letter-spacing: 1rpx;
+}
+
+.form-cell_input {
+  width: 100%;
+  font-size: var(--fs-base);
+  color: var(--text-1);
+}
+
+.form-cell_placeholder {
+  font-size: var(--fs-sm);
+  color: var(--text-3);
+}
+
+/* ================= 动效 ================= */
+@keyframes animation-blur {
+  from { filter: blur(7px); }
+  to { filter: blur(0px); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ================= 分类横向 Tab ================= */
+.cat-bar {
+  width: 100%;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 8rpx 24rpx 16rpx;
+}
+
+.cat-item {
+  display: inline-block;
+  padding: 14rpx 28rpx;
+  margin-right: 16rpx;
+  font-size: var(--fs-sm);
+  border-radius: 999rpx;
+  background: var(--card);
+  color: var(--text-2);
+  box-shadow: 0 2rpx 8rpx rgba(17, 20, 45, 0.05);
+  transition: all 0.2s ease;
+}
+
+.cat-item.active {
+  background: linear-gradient(135deg, #f7a8bc, #e0678a);
+  color: #ffffff;
+  font-weight: 500;
+  box-shadow: 0 8rpx 20rpx rgba(224, 103, 138, 0.32);
+}
+
+/* ================= 标签 chip ================= */
+.tag-chip {
+  display: inline-block;
+  padding: 6rpx 16rpx;
+  margin: 0 12rpx 8rpx 0;
+  font-size: var(--fs-2xs);
+  border-radius: 10rpx;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+/* ================= 菜品缩略图 ================= */
+.dish-thumb {
+  width: 112rpx;
+  height: 112rpx;
+  margin-left: 16rpx;
+  border-radius: 16rpx;
+  background: #f0f0f0;
+  flex-shrink: 0;
+}
+
+/* ================= 抽签卡片 ================= */
+.lucky-card {
+  width: calc(100% - 48rpx);
+  margin: 24rpx;
+  padding: 36rpx;
+  box-sizing: border-box;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(140deg, #f9bccb 0%, #f19cae 55%, #e0678a 100%);
+  color: #ffffff;
+  box-shadow: 0 18rpx 44rpx rgba(224, 103, 138, 0.32);
+}
+
+.lucky-title {
+  font-size: var(--fs-sm);
+  opacity: 0.92;
+}
+
+.lucky-name {
+  margin-top: 14rpx;
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+
+.lucky-desc {
+  margin-top: 10rpx;
+  font-size: var(--fs-xs);
+  opacity: 0.92;
+}
+
+.lucky-btn {
+  margin-top: 28rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  font-size: var(--fs-base);
+  font-weight: 500;
+  border-radius: 38rpx;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.lucky-btn.solid {
+  background: #ffffff;
+  color: var(--primary-dark);
+  margin-top: 16rpx;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+/* ================= 空状态 ================= */
+.empty-tip {
+  margin-top: 10rpx;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+/* ================= 自定义导航栏后，顶部给状态栏留的占位 ================= */
+.status-bar {
+  width: 100%;
+  flex-shrink: 0;
+}

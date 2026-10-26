@@ -1,0 +1,560 @@
+/* ---------- 空菜单 ---------- */
+.background {
+  width: 70vw;
+  margin-top: 5vh;
+}
+
+.title {
+  margin-top: 40rpx;
+  font-size: var(--fs-lg);
+  font-weight: bold;
+}
+
+.subtitle {
+  margin-top: 18rpx;
+  font-size: var(--fs-xs);
+}
+
+/* ---------- 顶部头 ---------- */
+/* 背景渐变由 page 统一铺满（含状态栏），这里只放内容 */
+.hero {
+  position: relative;
+  width: 100%;
+  flex-shrink: 0;
+  padding: 24rpx 32rpx 32rpx;
+  box-sizing: border-box;
+}
+
+/* 右下角半透明小装饰：让标题区不那么空 */
+.hero::after {
+  content: '🍳';
+  position: absolute;
+  right: 28rpx;
+  bottom: 16rpx;
+  font-size: 64rpx;
+  opacity: 0.26;
+}
+
+.hero-title {
+  font-family: 'Kaiti SC', 'STKaiti', 'KaiTi', serif;
+  font-size: var(--fs-num);
+  font-weight: 700;
+  color: #a04a63;
+  letter-spacing: 2rpx;
+}
+
+.hero-sub {
+  margin-top: 8rpx;
+  font-size: var(--fs-sm);
+  color: #c07a8d;
+}
+
+/* ---------- 左右分栏 ---------- */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.menu {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+/* 左侧分类栏：图标 + 名字横排 */
+.side-wrap {
+  width: 170rpx;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.side {
+  flex: 1;
+  min-height: 0;
+  /* 透明：让页面的渐变背景透上来，免得和右侧分出两层色 */
+  background: transparent;
+  border-right: 1rpx solid rgba(224, 103, 138, 0.08);
+}
+
+/* 分类栏底部的管理入口 */
+.side-manage {
+  flex-shrink: 0;
+  padding: 20rpx 0;
+  text-align: center;
+  font-size: var(--fs-xs);
+  color: var(--primary-dark);
+  border-right: 1rpx solid rgba(224, 103, 138, 0.08);
+  border-top: 1rpx solid rgba(224, 103, 138, 0.08);
+  transition: background-color 0.15s ease;
+}
+
+.manage-hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.cat {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 20rpx 12rpx;
+  color: var(--text-2);
+  transition: background-color 0.15s ease;
+}
+
+/* 未选中项按下去有轻微回应（放在 .on 之前，选中态优先） */
+.cat-hover {
+  background-color: rgba(255, 255, 255, 0.55);
+}
+
+.cat.on {
+  background: var(--card);
+  color: var(--primary-dark);
+  font-weight: 600;
+  /* 右侧圆角 + 柔阴影：选中项像一枚贴着左边缘的胶囊 */
+  border-radius: 0 22rpx 22rpx 0;
+  box-shadow: 0 4rpx 14rpx rgba(224, 103, 138, 0.10);
+}
+
+/* 选中项左侧的粉色竖条 */
+.cat.on::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 9rpx;
+  height: 36rpx;
+  background: var(--primary);
+  border-radius: 0 8rpx 8rpx 0;
+}
+
+.cat-icon {
+  font-size: var(--fs-lg);
+  line-height: 1;
+}
+
+.cat-name {
+  margin-left: 8rpx;
+  font-size: var(--fs-base);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 右侧菜品区 */
+.main {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 12rpx;
+  box-sizing: border-box;
+}
+
+.main-pad {
+  height: 40rpx;
+}
+
+/* ---------- 区块头：图标 + 标题 + 副文字 + 数量 ---------- */
+.group-title {
+  display: flex;
+  align-items: center;
+  margin: 8rpx 4rpx 16rpx;
+}
+
+.gt-icon {
+  font-size: var(--fs-md);
+}
+
+.gt-mid {
+  flex: 1;
+  min-width: 0;
+  margin-left: 10rpx;
+}
+
+.gt-name {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+/* 标题前的小竖条装饰 */
+.gt-name::before {
+  content: '';
+  display: inline-block;
+  width: 6rpx;
+  height: 22rpx;
+  margin-right: 10rpx;
+  vertical-align: middle;
+  background: linear-gradient(180deg, #f7a8bc, #e0678a);
+  border-radius: 3rpx;
+}
+
+.gt-sub {
+  margin-top: 2rpx;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+.gt-count {
+  flex-shrink: 0;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+/* ---------- 菜品卡片：左大图 + 右文字 ---------- */
+.dish-card {
+  margin-bottom: 16rpx;
+  background: var(--card);
+  border-radius: 24rpx;
+  /* 极淡的粉边：让白卡在渐变底上有清晰但不生硬的轮廓 */
+  border: 1rpx solid rgba(224, 103, 138, 0.08);
+  box-shadow: 0 10rpx 28rpx rgba(224, 103, 138, 0.10), 0 2rpx 8rpx rgba(224, 103, 138, 0.04);
+  overflow: hidden;
+}
+
+.dish-inner {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  padding: 14rpx;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+/* 按压反馈：轻微下沉 + 底色变暖 */
+.card-hover {
+  background-color: #fff8fa;
+  transform: scale(0.985);
+}
+
+/* 左侧大图 */
+.dish-media {
+  position: relative;
+  width: 240rpx;
+  height: 220rpx;
+  flex-shrink: 0;
+  border-radius: 16rpx;
+  overflow: hidden;
+  background: #f7e9ec;
+}
+
+.dish-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 没有图时用粉渐变底 + 餐具占位 */
+.dish-img_empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60rpx;
+  color: #dcb6c0;
+  background: linear-gradient(135deg, #fdeef2, #fadbe4);
+}
+
+/* 图左上角的角标 */
+.dish-badge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 6rpx 16rpx;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #f7a8bc, #e0678a);
+  border-radius: 16rpx 0 16rpx 0;
+  text-shadow: 0 1rpx 3rpx rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4rpx 10rpx rgba(224, 103, 138, 0.28);
+}
+
+.dish-info {
+  flex: 1;
+  min-width: 0;
+  margin-left: 16rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dish-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.dish-name {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--text-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dish-count {
+  flex-shrink: 0;
+  margin-left: 10rpx;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+.dish-desc {
+  margin-top: 8rpx;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dish-bottom {
+  display: flex;
+  align-items: center;
+  margin-top: 14rpx;
+}
+
+/* 价格：粉色圆点 + 大数字 */
+.dish-price {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+/* 圆点外面一圈淡粉光晕 */
+.dish-price::before {
+  content: '';
+  width: 12rpx;
+  height: 12rpx;
+  margin-right: 8rpx;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4rpx rgba(241, 156, 174, 0.18);
+}
+
+.price-unit {
+  margin-left: 4rpx;
+  font-size: var(--fs-2xs);
+  font-weight: 400;
+  color: var(--text-3);
+}
+
+/* 备菜进度：排在价格行中间 */
+.ig-progress {
+  flex: 1;
+  min-width: 0;
+  margin-left: 14rpx;
+  font-size: var(--fs-xs);
+  color: var(--primary-dark);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 价格行右端的圆形加菜按钮 */
+.dish-add {
+  flex-shrink: 0;
+  width: 56rpx;
+  height: 56rpx;
+  line-height: 52rpx;
+  text-align: center;
+  font-size: var(--fs-lg);
+  color: #fff;
+  background: linear-gradient(135deg, #f7a8bc, #e0678a);
+  border-radius: 50%;
+  box-shadow: 0 6rpx 16rpx rgba(224, 103, 138, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* 按下去缩一下，像真被按下 */
+.add-hover {
+  transform: scale(0.88);
+  box-shadow: 0 2rpx 8rpx rgba(224, 103, 138, 0.25);
+}
+
+/* 已下架：变淡 + 去色，一眼看出「不爱吃了」 */
+.dish-card.off .dish-inner {
+  opacity: 0.55;
+  filter: grayscale(0.7);
+}
+
+/* ---------- 搜索框 ---------- */
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 68rpx;
+  padding: 0 24rpx 0 60rpx;
+  margin: 20rpx 0 16rpx;
+  background-color: var(--card);
+  border: 1rpx solid rgba(224, 103, 138, 0.08);
+  border-radius: 34rpx;
+  box-shadow: var(--shadow);
+}
+
+.search-icon {
+  position: absolute;
+  left: 22rpx;
+}
+
+.search-input {
+  width: 100%;
+  height: 68rpx;
+  line-height: 68rpx;
+  font-size: var(--fs-sm);
+  color: var(--text-1);
+}
+
+.search-ph {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+/* ---------- 左滑按钮 ---------- */
+.addBtn .weui-slideview__btn { background-color: var(--primary); }
+.starBtn .weui-slideview__btn { background-color: #ffb400; }
+.removeBtn .weui-slideview__btn { background-color: #ff8a80; }
+
+/* ---------- 分类管理面板 ---------- */
+.mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(31, 35, 41, 0.35);
+  z-index: 900;
+}
+
+.sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 901;
+  box-sizing: border-box;
+  padding: 28rpx 32rpx calc(28rpx + env(safe-area-inset-bottom));
+  background: var(--card);
+  border-radius: 32rpx 32rpx 0 0;
+  box-shadow: 0 -8rpx 32rpx rgba(224, 103, 138, 0.16);
+}
+
+.sheet-head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.sheet-title {
+  flex: 1;
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.sheet-close {
+  flex-shrink: 0;
+  padding: 0 8rpx;
+  font-size: var(--fs-md);
+  color: var(--text-3);
+}
+
+.sheet-body {
+  max-height: 46vh;
+}
+
+.cat-row {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid var(--line);
+}
+
+.cat-row_icon {
+  flex-shrink: 0;
+  width: 56rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  text-align: center;
+  font-size: var(--fs-md);
+  background: #fdf1f4;
+  border-radius: 16rpx;
+}
+
+.cat-row_name {
+  flex: 1;
+  min-width: 0;
+  margin-left: 18rpx;
+  font-size: var(--fs-md);
+  color: var(--text-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cat-row_btn {
+  flex-shrink: 0;
+  width: 60rpx;
+  text-align: center;
+  font-size: var(--fs-md);
+}
+
+.sheet-add {
+  margin-top: 24rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: #fff;
+  border-radius: 44rpx;
+  background: linear-gradient(135deg, #f7a8bc, #e0678a);
+  box-shadow: 0 8rpx 20rpx rgba(224, 103, 138, 0.3);
+}
+
+/* ---------- 右下角加菜按钮 ---------- */
+.fab {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180rpx;
+  height: 88rpx;
+  box-sizing: border-box;
+  color: #fff;
+  border-radius: 44rpx;
+  background: linear-gradient(135deg, #f7a8bc, #e0678a);
+  box-shadow: 0 10rpx 24rpx rgba(224, 103, 138, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.fab-plus {
+  margin-right: 6rpx;
+  font-size: var(--fs-lg);
+  line-height: 1;
+}
+
+.fab-txt {
+  font-size: var(--fs-base);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.fab-hover {
+  transform: translate(-50%, -50%) scale(0.94);
+  box-shadow: 0 4rpx 12rpx rgba(224, 103, 138, 0.3);
+}

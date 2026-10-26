@@ -1,0 +1,117 @@
+<wxs module="util" src="../util.wxs" />
+
+<!-- 空态 -->
+<view class="container white" wx:if="{{allItems.length === 0}}">
+  <view class="status-bar" style="height: {{statusBarHeight}}px"></view>
+  <image class="background" src="Images/None.png" mode="aspectFit" />
+  <view class="title">餐单还是空的</view>
+  <view class="subtitle">去菜单挑几道菜吧~</view>
+</view>
+
+<view class="container cart-page" wx:if="{{allItems.length > 0}}">
+  <!-- 顶部：渐变由 page 铺满，这里只放标题 -->
+  <view class="hero" style="padding-top: calc({{statusBarHeight}}px + 32rpx)">
+    <view class="hero-title">今日餐单</view>
+    <view class="hero-sub">共 {{allItems.length}} 道 · 已上桌 {{servedItems.length}} 道</view>
+  </view>
+
+  <view class="search-bar">
+    <icon class="search-icon" type="search" size="16"></icon>
+    <input class="search-input" placeholder="搜索已点的菜" placeholder-class="search-ph" bindinput="onSearch" value="{{search}}" />
+  </view>
+
+  <!-- 我点的 -->
+  <block wx:if="{{myItems.length > 0}}">
+    <view class="group-title">
+      <text class="gt-icon">🧑</text>
+      <view class="gt-mid">
+        <view class="gt-name">我点的</view>
+        <view class="gt-sub">还没上桌</view>
+      </view>
+      <view class="gt-count">{{myItems.length}} 道</view>
+    </view>
+    <view class="cart-card" wx:for="{{myItems}}" wx:key="index">
+      <mp-slideview buttons="{{slideButtons}}" data-index="{{index}}" icon="{{true}}" bindbuttontap="slideButtonTapMy">
+        <view class="cart-inner" data-index="{{index}}" bindtap="toDetailPageMy">
+          <image class="cart-thumb" wx:if="{{item.imageFileID}}" src="{{item.imageFileID}}" mode="aspectFill" />
+          <view wx:else class="cart-thumb cart-thumb_empty">🍽</view>
+          <view class="cart-info">
+            <view class="cart-top">
+              <view class="cart-name">{{item.title}}</view>
+              <text wx:if="{{item.star}}" class="cart-star">★</text>
+              <view class="cart-count">×{{item.count || 1}}</view>
+            </view>
+            <view class="cart-meta">💰 {{util.price(item.price)}} 元 · {{util.mealName(item.mealType)}}</view>
+            <view class="cart-remark">📝 {{item.remark || '无备注'}}</view>
+          </view>
+        </view>
+      </mp-slideview>
+    </view>
+  </block>
+
+  <!-- TA 点的 -->
+  <block wx:if="{{taItems.length > 0}}">
+    <view class="group-title">
+      <text class="gt-icon">👩</text>
+      <view class="gt-mid">
+        <view class="gt-name">TA 点的</view>
+        <view class="gt-sub">还没上桌</view>
+      </view>
+      <view class="gt-count">{{taItems.length}} 道</view>
+    </view>
+    <view class="cart-card" wx:for="{{taItems}}" wx:key="index">
+      <mp-slideview buttons="{{slideButtons}}" data-index="{{index}}" icon="{{true}}" bindbuttontap="slideButtonTapTa">
+        <view class="cart-inner" data-index="{{index}}" bindtap="toDetailPageTa">
+          <image class="cart-thumb" wx:if="{{item.imageFileID}}" src="{{item.imageFileID}}" mode="aspectFill" />
+          <view wx:else class="cart-thumb cart-thumb_empty">🍽</view>
+          <view class="cart-info">
+            <view class="cart-top">
+              <view class="cart-name">{{item.title}}</view>
+              <text wx:if="{{item.star}}" class="cart-star">★</text>
+              <view class="cart-count">×{{item.count || 1}}</view>
+            </view>
+            <view class="cart-meta">💰 {{util.price(item.price)}} 元 · {{util.mealName(item.mealType)}}</view>
+            <view class="cart-remark">📝 {{item.remark || '无备注'}}</view>
+          </view>
+        </view>
+      </mp-slideview>
+    </view>
+  </block>
+
+  <!-- 已上桌 -->
+  <block wx:if="{{servedItems.length > 0}}">
+    <view class="group-title">
+      <text class="gt-icon">🍚</text>
+      <view class="gt-mid">
+        <view class="gt-name">已上桌</view>
+        <view class="gt-sub">吃过的都在这儿</view>
+      </view>
+      <view class="gt-count">{{servedItems.length}} 道</view>
+    </view>
+    <view class="cart-card served" wx:for="{{servedItems}}" wx:key="index">
+      <mp-slideview buttons="{{slideButtons}}" data-index="{{index}}" icon="{{true}}" bindbuttontap="slideButtonTapServed">
+        <view class="cart-inner" data-index="{{index}}" bindtap="toDetailPageServed">
+          <image class="cart-thumb" wx:if="{{item.imageFileID}}" src="{{item.imageFileID}}" mode="aspectFill" />
+          <view wx:else class="cart-thumb cart-thumb_empty">🍽</view>
+          <view class="cart-info">
+            <view class="cart-top">
+              <view class="cart-name">{{item.title}}</view>
+              <text wx:if="{{item.star}}" class="cart-star">★</text>
+            </view>
+            <view class="cart-meta">📅 {{util.cutStr(item.date, 10)}} 上桌</view>
+          </view>
+        </view>
+      </mp-slideview>
+    </view>
+  </block>
+
+  <view wx:if="{{myItems.length === 0 && taItems.length === 0 && servedItems.length === 0}}" class="empty-tip">没找到这道菜哦</view>
+
+  <!-- 今日合计 -->
+  <view class="total-card" wx:if="{{myItems.length > 0 || taItems.length > 0}}">
+    <view class="total-label">今日合计</view>
+    <view class="total-price">{{totalPrice}} 元</view>
+  </view>
+
+  <view class="main-pad"></view>
+</view>

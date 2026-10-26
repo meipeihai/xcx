@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/MainPage/index",
+    "pages/Dish/index",
+    "pages/DishAdd/index",
+    "pages/DishDetail/index",
+    "pages/Cook/index",
+    "pages/Cart/index",
+    "pages/OrderDetail/index"
+  ],
+  "window": {
+    "backgroundColor": "#fdf1f4",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f5aebd",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#b0a4a8",
+    "selectedColor": "#e0678a",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [{
+      "pagePath": "pages/MainPage/index",
+      "selectedIconPath": "images/TabBar/HomeIconColor.png",
+      "iconPath": "images/TabBar/HomeIconGrey.png",
+      "text": "今天吃啥"
+    }, {
+      "pagePath": "pages/Dish/index",
+      "selectedIconPath": "images/TabBar/MarketIconColor.png",
+      "iconPath": "images/TabBar/MarketIconGrey.png",
+      "text": "菜单"
+    },{
+      "pagePath": "pages/Cook/index",
+      "selectedIconPath": "images/TabBar/MissionIconColor.png",
+      "iconPath": "images/TabBar/MissionIconGrey.png",
+      "text": "点菜记录"
+    },{
+      "pagePath": "pages/Cart/index",
+      "selectedIconPath": "images/TabBar/AccountIconColor.png",
+      "iconPath": "images/TabBar/AccountIconGrey.png",
+      "text": "今日餐单"
+    }]
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "cloud": true,
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

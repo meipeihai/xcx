@@ -1,0 +1,136 @@
+<wxs module="util" src="../util.wxs" />
+
+<view class="container white" wx:if="{{allDishes.length === 0}}">
+  <view class="status-bar" style="height: {{statusBarHeight}}px"></view>
+  <image class="background" src="Images/None.png" mode="aspectFit" />
+  <view class="title">🍽 菜单还是空的</view>
+  <view class="subtitle">点右下角加一道拿手菜吧~</view>
+</view>
+
+<view class="page" wx:if="{{allDishes.length > 0}}">
+  <!-- 顶部：渐变由 page 铺满，这里只放标题 -->
+  <view class="hero" style="padding-top: calc({{statusBarHeight}}px + 24rpx)">
+    <view class="hero-title">今天想吃什么？</view>
+    <view class="hero-sub">{{user}}，挑一道吧</view>
+  </view>
+
+  <view class="menu">
+    <!-- 左侧分类栏：图标 + 名字横排 -->
+    <view class="side-wrap">
+      <scroll-view scroll-y class="side">
+        <view wx:for="{{categories}}" wx:key="index"
+          class="cat {{categoryIndex === index ? 'on' : ''}}" hover-class="cat-hover" hover-stay-time="80"
+          data-index="{{index}}" bindtap="onCategoryTap">
+          <view class="cat-icon">{{item.icon}}</view>
+          <view class="cat-name">{{item.name}}</view>
+        </view>
+      </scroll-view>
+      <view class="side-manage" bindtap="openManager" hover-class="manage-hover">⚙️ 管理</view>
+    </view>
+
+    <!-- 右侧菜品区 -->
+    <scroll-view scroll-y class="main">
+      <view class="search-bar">
+        <icon class="search-icon" type="search" size="16"></icon>
+        <input class="search-input" placeholder="搜索菜名" placeholder-class="search-ph" bindinput="onSearch" value="{{search}}" />
+      </view>
+
+      <!-- 区块头：图标 + 标题 + 副文字 + 数量 -->
+      <view class="group-title">
+        <text class="gt-icon">✨</text>
+        <view class="gt-mid">
+          <view class="gt-name">在菜单里</view>
+          <view class="gt-sub">挑一道喜欢的吧</view>
+        </view>
+        <view class="gt-count">{{onMenu.length}} 道</view>
+      </view>
+
+      <view class="dish-card" wx:for="{{onMenu}}" wx:key="index">
+        <mp-slideview buttons="{{slideButtons}}" data-index="{{index}}" icon="{{true}}" bindbuttontap="slideButtonTapUpper">
+          <view class="dish-inner" hover-class="card-hover" hover-stay-time="80" data-index="{{index}}" bindtap="toDetailPageUpper">
+            <!-- 左侧大图，左上角带人气角标 -->
+            <view class="dish-media">
+              <image class="dish-img" wx:if="{{item.imageFileID}}" src="{{item.imageFileID}}" mode="aspectFill" />
+              <view wx:else class="dish-img dish-img_empty">🍽</view>
+              <view wx:if="{{item.isTop}}" class="dish-badge">🔥 人气 No.1</view>
+            </view>
+
+            <view class="dish-info">
+              <view class="dish-top">
+                <view class="dish-name">{{item.title}}</view>
+                <view class="dish-count">{{item.eatCount || 0}} 次</view>
+              </view>
+              <view class="dish-desc">{{item.desc || item.category || '未分类'}}</view>
+              <view class="dish-bottom">
+                <view class="dish-price">{{util.price(item.price)}}<text class="price-unit"> 元</text></view>
+                <view wx:if="{{item.ingredientTotal > 0}}" class="ig-progress">🥕 {{item.ingredientDone}}/{{item.ingredientTotal}}</view>
+                <view class="dish-add" hover-class="add-hover" hover-stay-time="80" catchtap="addDish" data-index="{{index}}">＋</view>
+              </view>
+            </view>
+          </view>
+        </mp-slideview>
+      </view>
+      <view wx:if="{{onMenu.length === 0}}" class="empty-tip">这个分类下暂时没有菜哦</view>
+
+      <block wx:if="{{offMenu.length > 0}}">
+        <view class="group-title">
+          <text class="gt-icon">🚫</text>
+          <view class="gt-mid">
+            <view class="gt-name">不爱吃了</view>
+            <view class="gt-sub">先放一放</view>
+          </view>
+          <view class="gt-count">{{offMenu.length}} 道</view>
+        </view>
+        <view class="dish-card off" wx:for="{{offMenu}}" wx:key="index">
+          <mp-slideview buttons="{{slideButtons}}" data-index="{{index}}" icon="{{true}}" bindbuttontap="slideButtonTapLower">
+            <view class="dish-inner" hover-class="card-hover" hover-stay-time="80" data-index="{{index}}" bindtap="toDetailPageLower">
+              <view class="dish-media">
+                <image class="dish-img" wx:if="{{item.imageFileID}}" src="{{item.imageFileID}}" mode="aspectFill" />
+                <view wx:else class="dish-img dish-img_empty">🍽</view>
+              </view>
+              <view class="dish-info">
+                <view class="dish-top">
+                  <view class="dish-name">{{item.title}}</view>
+                </view>
+                <view class="dish-desc">{{item.desc || item.category || '未分类'}}</view>
+                <view class="dish-bottom">
+                  <view class="dish-price">{{util.price(item.price)}}<text class="price-unit"> 元</text></view>
+                </view>
+              </view>
+            </view>
+          </mp-slideview>
+        </view>
+      </block>
+
+      <view class="main-pad"></view>
+    </scroll-view>
+  </view>
+</view>
+
+<!-- 分类管理面板 -->
+<view wx:if="{{managing}}" class="mask" bindtap="closeManager"></view>
+<view wx:if="{{managing}}" class="sheet">
+  <view class="sheet-head">
+    <view class="sheet-title">管理分类</view>
+    <view class="sheet-close" bindtap="closeManager">✕</view>
+  </view>
+  <scroll-view scroll-y class="sheet-body">
+    <view class="cat-row" wx:for="{{catDocs}}" wx:key="_id">
+      <view class="cat-row_icon" data-index="{{index}}" bindtap="pickIcon">{{item.icon || '🍴'}}</view>
+      <view class="cat-row_name">{{item.name}}</view>
+      <view class="cat-row_btn" data-index="{{index}}" bindtap="renameCategory">✏️</view>
+      <view class="cat-row_btn" data-index="{{index}}" bindtap="removeCategory">🗑</view>
+    </view>
+    <view wx:if="{{catDocs.length === 0}}" class="empty-tip">还没有分类，加一个吧</view>
+  </scroll-view>
+  <view class="sheet-add" bindtap="addCategory">＋ 新增分类</view>
+</view>
+
+<movable-area style="pointer-events: none; position: fixed; width: 100%; height: 100%;">
+  <movable-view style="pointer-events: auto; width: 20%; height: 20%;" x="{{screenWidth}}" y="{{screenHeight}}" direction="all">
+    <view class="fab" bindtap="toAddPage" hover-class="fab-hover" style="position: absolute; left: 35rpx; top: 147rpx">
+      <text class="fab-plus">＋</text>
+      <text class="fab-txt">加菜</text>
+    </view>
+  </movable-view>
+</movable-area>

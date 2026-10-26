@@ -1,0 +1,79 @@
+<wxs module="util" src="../util.wxs" />
+
+<view class="container white" style="animation-name: animation-blur; animation-duration: 0.8s;">
+  <image wx:if="{{dish.imageFileID}}" class="dish-cover" src="{{dish.imageFileID}}" mode="aspectFill" />
+  <image wx:else src="../../images/Item.gif" mode='widthFix' />
+
+  <view class="form-group" style="z-index: 0; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05);">
+    <view class="form-cell">
+      <view class="item-info_title">📌 菜品名称</view>
+      <view class="item-info_desc">{{dish.title}}</view>
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">🍽 分类 / 口味</view>
+      <view class="item-info_desc">{{dish.category || '未分类'}}</view>
+      <view class="tag-chip" wx:for="{{dish.tags}}" wx:for-item="tag" wx:for-index="tidx" wx:key="*this">{{tag}}</view>
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">🥕 备菜清单 {{gotList.length}}/{{ingredients.length}}</view>
+
+      <view class="ig-block ig-got">
+        <view class="ig-block_title">✅ 已买到 {{gotList.length}}</view>
+        <view class="ig-row" wx:for="{{gotList}}" wx:for-item="ig" wx:key="name"
+          data-name="{{ig.name}}" bindtap="toggleIngredient" bindlongpress="renameIngredient">
+          <icon class="ig-row_icon" type="success" size="15" />
+          <text class="ig-row_name">{{ig.name}}</text>
+          <text class="ig-row_del" catchtap="removeIngredient" data-name="{{ig.name}}">×</text>
+        </view>
+        <view wx:if="{{gotList.length === 0}}" class="ig-block_empty">还一样都没买</view>
+      </view>
+
+      <view class="ig-block ig-buy">
+        <view class="ig-block_title">🛒 还要买 {{buyList.length}}</view>
+        <view class="ig-row" wx:for="{{buyList}}" wx:for-item="ig" wx:key="name"
+          data-name="{{ig.name}}" bindtap="toggleIngredient" bindlongpress="renameIngredient">
+          <icon class="ig-row_icon" type="cancel" size="15" />
+          <text class="ig-row_name">{{ig.name}}</text>
+          <text class="ig-row_del" catchtap="removeIngredient" data-name="{{ig.name}}">×</text>
+        </view>
+        <view wx:if="{{buyList.length === 0}}" class="ig-block_empty">买齐啦，可以开做 🎉</view>
+      </view>
+
+      <view class="ig-input-row">
+        <input class="form-cell_input ig-input" placeholder="加个配料，如：鸡蛋" placeholder-class="form-cell_placeholder" bindinput="onIngredientInput" value="{{ingredientDraft}}" />
+        <view class="ig-add" bindtap="addIngredient">添加</view>
+      </view>
+      <view class="ig-tip">点一下切换「已买 / 待买」· 长按改名 · 右侧 × 删除</view>
+      <view wx:if="{{ingredients.length > 0}}" class="ig-reset" bindtap="resetPrepared">全部标为待买</view>
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">👩‍🍳 由谁添加</view>
+      <view class="item-info_desc">{{owner}} 加入了这道菜</view>
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">🔥 被点次数：{{dish.eatCount || 0}} 次</view>
+      <view class="item-info_desc">最近一次：{{dish.lastEatDate ? util.cutStr(dish.lastEatDate, 10) : '还没点过'}}</view>
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">💰 参考价格：{{util.price(dish.price)}} 元</view>
+      <progress percent="{{pricePercent}}" border-radius="5" font-size="8" duration="10" color="#e0678a" active stroke-width="7">
+        <view class="item-info_credit">{{maxPrice}} 元</view>
+      </progress>
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">📅 添加日期</view>
+      <view class="item-info_desc">{{dateStr}} | {{util.cutStr(timeStr, 8)}}</view>
+    </view>
+
+    <view class="form-cell">
+      <view class="item-info_title">📝 做法 / 备注</view>
+      <view class="item-info_desc">{{dish.desc}}</view>
+    </view>
+  </view>
+</view>
